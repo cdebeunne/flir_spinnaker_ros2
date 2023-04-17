@@ -22,7 +22,24 @@ from launch.substitutions import LaunchConfiguration as LaunchConfig
 from launch.actions import DeclareLaunchArgument as LaunchArg
 from ament_index_python.packages import get_package_share_directory
 
-camera_params = {
+camera_params_left = {
+    'debug': False,
+    'compute_brightness': True,
+    'dump_node_map': False,
+    'adjust_timestamp': True,
+    'frame_rate_auto': 'Off',
+    'frame_rate': 1.0,
+    'gain_auto': 'Off',
+    'gain': 0,
+    'exposure_auto': 'Off',
+    'exposure_time': 9000,
+    'trigger_mode': 'Off',
+    'line_selector': 'Line2',
+    'line_mode': 'Output',
+    'line_source': 'ExposureActive',
+    }
+
+camera_params_right = {
     'debug': False,
     'compute_brightness': True,
     'dump_node_map': False,
@@ -31,24 +48,10 @@ camera_params = {
     'gain': 0,
     'exposure_auto': 'Off',
     'exposure_time': 9000,
-    'line2_selector': 'Line2',
-    'line2_v33enable': False,
-    'line3_selector': 'Line3',
-    'line3_linemode': 'Input',
     'trigger_selector': 'FrameStart',
     'trigger_mode': 'On',
     'trigger_source': 'Line3',
     'trigger_delay': 9,
-    'trigger_overlap': 'ReadOut',
-    'chunk_mode_active': True,
-    'chunk_selector_frame_id': 'FrameID',
-    'chunk_enable_frame_id': True,
-    'chunk_selector_exposure_time': 'ExposureTime',
-    'chunk_enable_exposure_time': True,
-    'chunk_selector_gain': 'Gain',
-    'chunk_enable_gain': True,
-    'chunk_selector_timestamp': 'Timestamp',
-    'chunk_enable_timestamp': True,
     }
 
 
@@ -66,9 +69,9 @@ def generate_launch_description():
                     package='flir_spinnaker_ros2',
                     plugin='flir_spinnaker_ros2::CameraDriver',
                     name=LaunchConfig('cam_0_name'),
-                    parameters=[camera_params,
-                                {'parameter_file': config_dir + 'blackfly_s.cfg',
-                                 'serial_number': '20435008'}],
+                    parameters=[camera_params_left,
+                                {'parameter_file': config_dir + 'flea.cfg',
+                                 'serial_number': '16362337'}],
                     remappings=[('~/control', '/exposure_control/control'), ],
                     extra_arguments=[{'use_intra_process_comms': True}],
                 ),
@@ -76,10 +79,10 @@ def generate_launch_description():
                     package='flir_spinnaker_ros2',
                     plugin='flir_spinnaker_ros2::CameraDriver',
                     name=LaunchConfig('cam_1_name'),
-                    parameters=[camera_params,
+                    parameters=[camera_params_right,
                                 {'parameter_file':
-                                 config_dir + 'blackfly_s.cfg',
-                                 'serial_number': '20415937'}],
+                                 config_dir + 'flea.cfg',
+                                 'serial_number': '17476603'}],
                     remappings=[('~/control', '/exposure_control/control'), ],
                     extra_arguments=[{'use_intra_process_comms': True}],
                 ),
