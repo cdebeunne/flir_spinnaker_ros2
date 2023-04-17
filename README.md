@@ -95,11 +95,17 @@ colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo -D
 . install/setup.bash
 ```
 
-## Example usage
+## Example Flea3 mono
 
 How to launch the example file:
 ```
-ros2 launch flir_spinnaker_ros2 blackfly_s.launch.py camera_name:=blackfly_0 serial:="'20435008'"
+ros2 launch flir_spinnaker_ros2 flea_3.launch.py serial:="'16362337'"
+```
+
+## Example Flea3 stereo
+
+```
+ros2 launch flir_spinnaker_ros2 stereo_synced.launch.py
 ```
 
 ## Setting up GigE cameras
